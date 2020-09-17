@@ -13,4 +13,3 @@ oc config set-credentials default-admin \
 
 oc config set-context default-system --cluster=default-cluster --user=default-admin
 oc config use-context default-system
-oc get pods --kubeconfig=/tmp/kubeconfig
