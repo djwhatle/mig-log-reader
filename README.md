@@ -1,2 +1,2 @@
-# mtc-log-reader
+# mig-log-reader
 Tails and collates logs for MTC OpenShift Migrations
