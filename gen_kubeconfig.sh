@@ -3,25 +3,14 @@ ca=$(cat /run/secrets/kubernetes.io/serviceaccount/ca.crt)
 token=$(cat /run/secrets/kubernetes.io/serviceaccount/token)
 namespace=$(cat /run/secrets/kubernetes.io/serviceaccount/namespace)
 
-echo "
-apiVersion: v1
-kind: Config
-clusters:
-- name: default-cluster
-  cluster:
-    certificate-authority-data: ${ca}
-    server: ${server}
-contexts:
-- name: default-context
-  context:
-    cluster: default-cluster
-    namespace: default
-    user: default-user
-current-context: default-context
-users:
-- name: default-user
-  user:
-    token: ${token}
-" > sa.kubeconfig
+export KUBECONFIG=/tmp/kubeconfig
+oc config set-cluster default-cluster --server=https://$KUBERNETES_SERVICE_HOST:$KUBERNETES_PORT_443_TCP_PORT \
+    --certificate-authority=/run/secrets/kubernetes.io/serviceaccount/ca.crt
 
-# https://stackoverflow.com/questions/47770676/how-to-create-a-kubectl-config-file-for-serviceaccount
+oc config set-credentials default-admin \
+    --certificate-authority=/run/secrets/kubernetes.io/serviceaccount/ca.crt \
+    --token="$token"
+
+oc config set-context default-system --cluster=default-cluster --user=default-admin
+oc config use-context default-system
+oc get pods --kubeconfig=/tmp/kubeconfig
