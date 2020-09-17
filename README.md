@@ -15,5 +15,5 @@ oc create -f deploy.yaml
 
 3. Tail the combined logs from all mig components
 ```
-oc logs -f --selector logreader=mig
+oc logs -f --selector logreader=mig -n openshift-migration
 ```

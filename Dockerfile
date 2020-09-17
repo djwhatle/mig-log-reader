@@ -8,6 +8,6 @@ COPY bin/stern_linux_amd64_1.11.0 /usr/bin/stern
 COPY sa2kubeconfig.sh /usr/bin/sa2kubeconfig.sh
 
 # Set up overrideable command in ENV
-CMD sa2kubeconfig.sh && stern --kubeconfig /tmp/kubeconfig "migration-controller|migration-ui|registry|restic|velero" --exclude-container discovery --exclude "watch is too old" --since=1s
+CMD sa2kubeconfig.sh && stern --kubeconfig /tmp/kubeconfig "migration-controller|migration-ui|registry|restic|velero" --exclude-container discovery --exclude "watch is too old" --tail=0 --color always
 # CMD stern $STERN_CMD && sleep 5m
 
