@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mig-log-reader
+  labels:
+    app: migration
+spec:
+  selector:
+    matchLabels:
+      logreader: mig
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: migration
+        logreader: mig
+    spec:
+      containers:
+        - name: logtail
+          image: 'quay.io/djwhatle/mig-log-reader:latest'
+          imagePullPolicy: Always
+      serviceAccountName: migration-controller
