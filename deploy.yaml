@@ -21,4 +21,10 @@ spec:
         - name: logtail
           image: 'quay.io/djwhatle/mig-log-reader:latest'
           imagePullPolicy: Always
+          volumeMounts:
+            - mountPath: /var/cache/sa2kubeconfig
+              name: kubeconfig
       serviceAccountName: migration-controller
+      volumes:
+      - emptyDir: {}
+        name: kubeconfig

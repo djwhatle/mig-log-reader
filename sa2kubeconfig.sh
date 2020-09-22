@@ -3,7 +3,7 @@ ca=$(cat /run/secrets/kubernetes.io/serviceaccount/ca.crt)
 token=$(cat /run/secrets/kubernetes.io/serviceaccount/token)
 namespace=$(cat /run/secrets/kubernetes.io/serviceaccount/namespace)
 
-export KUBECONFIG=/tmp/kubeconfig
+export KUBECONFIG=/var/cache/sa2kubeconfig/kubeconfig
 oc config set-cluster default-cluster --server=https://$KUBERNETES_SERVICE_HOST:$KUBERNETES_PORT_443_TCP_PORT \
     --certificate-authority=/run/secrets/kubernetes.io/serviceaccount/ca.crt
 
