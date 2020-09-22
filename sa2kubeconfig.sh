@@ -2,8 +2,12 @@ server=https://$KUBERNETES_SERVICE_HOST:$KUBERNETES_PORT_443_TCP_PORT
 ca=$(cat /run/secrets/kubernetes.io/serviceaccount/ca.crt)
 token=$(cat /run/secrets/kubernetes.io/serviceaccount/token)
 namespace=$(cat /run/secrets/kubernetes.io/serviceaccount/namespace)
+configpath=/var/cache/sa2kubeconfig/kubeconfig
 
-export KUBECONFIG=/var/cache/sa2kubeconfig/kubeconfig
+# Touch to avoid "Config not found" err on start up
+touch ${configpath}
+
+export KUBECONFIG=${configpath}
 oc config set-cluster default-cluster --server=https://$KUBERNETES_SERVICE_HOST:$KUBERNETES_PORT_443_TCP_PORT \
     --certificate-authority=/run/secrets/kubernetes.io/serviceaccount/ca.crt
 
