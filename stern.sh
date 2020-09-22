@@ -1,8 +1,10 @@
+CONFIGPATH=/var/cache/sa2kubeconfig/kubeconfig-${KSUFFIX}
+
 stern "migration-controller|migration-ui|registry|restic|velero" \
---color always \
+--color ${STERN_COLOR} \
 --exclude-container discovery \
 --exclude "watch is too old"  \
 --exclude "level=debug msg=.*s3aws.Stat" \
 --exclude "Found new dockercfg secret" \
---tail=0 \
---kubeconfig /var/cache/sa2kubeconfig/kubeconfig \
+--since 5s \
+--kubeconfig ${CONFIGPATH} \

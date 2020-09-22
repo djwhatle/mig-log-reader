@@ -18,12 +18,30 @@ spec:
         logreader: mig
     spec:
       containers:
-        - name: logtail
+        - name: color
           image: 'quay.io/djwhatle/mig-log-reader:latest'
           imagePullPolicy: Always
           volumeMounts:
             - mountPath: /var/cache/sa2kubeconfig
               name: kubeconfig
+          env:
+            - name: STERN_COLOR
+              value: always
+            - name: KSUFFIX
+              value: color
+
+        - name: plain
+          image: 'quay.io/djwhatle/mig-log-reader:latest'
+          imagePullPolicy: Always
+          volumeMounts:
+            - mountPath: /var/cache/sa2kubeconfig
+              name: kubeconfig
+          env:
+            - name: STERN_COLOR
+              value: never
+            - name: KSUFFIX
+              value: plain
+
       serviceAccountName: migration-controller
       volumes:
       - emptyDir: {}
