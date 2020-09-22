@@ -14,8 +14,15 @@ oc create -f deploy.yaml
 ```
 
 3. Tail the combined logs from all mig components
+
 ```
-oc logs -f --selector logreader=mig -n openshift-migration
+# Colorized logs
+oc logs -f --selector logreader=mig -n openshift-migration -c color
+```
+
+```
+# Plain logs
+oc logs -f --selector logreader=mig -n openshift-migration -c plain
 ```
 
 ![logs](./doc/images/logs.png)
