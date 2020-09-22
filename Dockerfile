@@ -6,6 +6,7 @@ FROM registry.access.redhat.com/ubi8-minimal:latest
 COPY --from=oc /usr/bin/oc /usr/bin/oc
 COPY bin/stern_linux_amd64_1.11.0 /usr/bin/stern
 COPY sa2kubeconfig.sh /usr/bin/sa2kubeconfig.sh
+COPY stern.sh /usr/bin/stern.sh
 COPY entrypoint.sh /usr/bin/entrypoint.sh
 RUN mkdir -p /var/cache/sa2kubeconfig
 
