@@ -17,3 +17,5 @@ oc create -f deploy.yaml
 ```
 oc logs -f --selector logreader=mig -n openshift-migration
 ```
+
+![logs](./doc/images/logs.png)
